@@ -37,6 +37,6 @@ glue_client = create_glue_client(k_REGION)
 example_db = get_database(glue_client, k_ACCOUNT_ID, k_EXAMPLE_DB_NAME)
 
 if "Database" in example_db:
-    st.write(example_db["Database"]["LocationUri"])
+    st.write(example_db)
 else:
     st.write("there was an error fetching the databse")
