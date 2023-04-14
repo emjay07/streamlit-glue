@@ -69,19 +69,19 @@ k_EXAMPLE_KEY = "run-1681502746485-part-r-00000"
 # Streamlit App
 st.title("Stand-In App")
 
+glue_client = create_glue_client(k_REGION)
+example_table = get_table(glue_client, k_ACCOUNT_ID, k_EXAMPLE_DB_NAME, k_EXAMPLE_TABLE_NAME)
+
+s3_bucket_location = example_table["Table"]["Location"]
+
 s3_client = create_s3_client()
-content = get_content_from_s3(s3_client, k_EXAMPLE_S3_BUCKET, k_EXAMPLE_KEY)
+content = get_content_from_s3(s3_client, s3_bucket_location, k_EXAMPLE_KEY)
 
 for line in content.strip().split("\n"):
     event, category, date, venue = line.split(",")
     st.write(f"There is a {category} event {event} on {date} at {venue}")
 
-glue_client = create_glue_client(k_REGION)
-example_db = get_database(glue_client, k_ACCOUNT_ID, k_EXAMPLE_DB_NAME)
-example_table = get_table(glue_client, k_ACCOUNT_ID, k_EXAMPLE_DB_NAME, k_EXAMPLE_TABLE_NAME)
-
 if "Database" in example_db:
-    st.write(example_db)
     st.write(example_table)
 else:
     st.write("there was an error fetching the databse")
