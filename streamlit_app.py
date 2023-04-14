@@ -47,13 +47,15 @@ def get_table(glue_client, catalog_id, database_name, table_name):
 def get_content_from_s3(s3_client, bucket, key):
     
     try:
-        return s3_client.get_object(
+        s3_object = s3_client.get_object(
             Bucket=bucket,
             Key=key
-        ).get()['Body'].read()
+        )['Body']
     except ClientError as e:
         st.write(e)
         return ""
+    
+    return s3_object.read()
 
 
 # constants
