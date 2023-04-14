@@ -50,7 +50,7 @@ def get_content_from_s3(s3_client, bucket, key):
         return s3_client.get_object(
             Bucket=bucket,
             Key=key
-        ).read()
+        ).get()['Body'].read()
     except ClientError as e:
         st.write(e)
         return ""
