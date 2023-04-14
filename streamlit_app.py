@@ -42,7 +42,6 @@ def get_table(glue_client, catalog_id, database_name, table_name):
 def get_content_from_s3(s3_path):
     fs = s3fs.S3FileSystem(anon=False)
 
-    @st.cache_data(ttl=600)
     def read_file(filename):
         with fs.open(filename) as f:
             return f.read().decode("utf-8")
