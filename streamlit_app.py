@@ -75,7 +75,7 @@ example_table = get_table(glue_client, k_ACCOUNT_ID, k_EXAMPLE_DB_NAME, k_EXAMPL
 storage = example_table['Table']['StorageDescriptor']
 
 st.write(storage)
-s3_bucket_location = storage['Location'].lstrip('/').rstrip('/')
+s3_bucket_location = storage['Location'].split('/')[2]
 # s3_bucket_location = k_EXAMPLE_S3_BUCKET
 
 s3_client = create_s3_client()
