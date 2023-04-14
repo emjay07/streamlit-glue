@@ -55,7 +55,7 @@ def get_content_from_s3(s3_client, bucket, key):
         st.write(e)
         raise
     
-    return s3_object.read()
+    return s3_object.read().decode('utf-8')
 
 
 # constants
