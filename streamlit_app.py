@@ -72,8 +72,11 @@ st.title("Stand-In App")
 glue_client = create_glue_client(k_REGION)
 example_table = get_table(glue_client, k_ACCOUNT_ID, k_EXAMPLE_DB_NAME, k_EXAMPLE_TABLE_NAME)
 
-# s3_bucket_location = example_table['Table']['Location']
-s3_bucket_location = k_EXAMPLE_S3_BUCKET
+storage = example_table['Table']['StorageDescriptor']
+
+st.write(storage)
+s3_bucket_location = storage['Location']
+# s3_bucket_location = k_EXAMPLE_S3_BUCKET
 
 s3_client = create_s3_client()
 content = get_content_from_s3(s3_client, s3_bucket_location, k_EXAMPLE_KEY)
