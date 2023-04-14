@@ -10,10 +10,9 @@ def create_glue_client(region_id):
 
     return glue_client
 
-def create_s3_client(region_id):
+def create_s3_client():
     client = boto.client(
-        's3',
-        region_name = region_id
+        's3'
     )
 
     return client
@@ -68,7 +67,7 @@ k_EXAMPLE_KEY = "run-1681502746485-part-r-00000"
 # Streamlit App
 st.title("Stand-In App")
 
-s3_client = create_s3_client(k_REGION)
+s3_client = create_s3_client()
 content = get_content_from_s3(s3_client, k_EXAMPLE_S3_BUCKET, k_EXAMPLE_KEY)
 
 for line in content.strip().split("\n"):
