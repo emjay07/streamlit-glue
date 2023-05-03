@@ -1,6 +1,7 @@
 import streamlit as st
 import boto3 as boto
 import pandas as pd
+from io import StringIO
 from botocore.exceptions import ClientError
 
 def create_s3_client():
@@ -55,7 +56,7 @@ content = ""
 for key in object_keys:
     content += get_object_content_from_s3(s3_client, k_S3_BUCKET, key)
 
-df = pd.read_csv(content)
+df = pd.read_csv(StringIO(content))
 st.dataframe(df)
 
 # for line in content.strip().split("\n"):
