@@ -52,12 +52,15 @@ st.title("Stand-In App")
 
 s3_client = create_s3_client()
 object_keys = get_object_keys_from_s3(s3_client, k_S3_BUCKET)
-content = ""
+df_list = []
 for key in object_keys:
-    content += get_object_content_from_s3(s3_client, k_S3_BUCKET, key)
+    temp = get_object_content_from_s3(s3_client, k_S3_BUCKET, key)
+    df = pd.read_csv(StringIO(temp))
+    df.tail(-1) # get rid of the header of each file
+    df_list.append(df)
 
-df = pd.read_csv(StringIO(content))
-st.dataframe(df)
+final_df = pd.concat(df_list)
+st.dataframe(final_df)
 
 # for line in content.strip().split("\n"):
 #     event, category, date, venue = line.split(",")
