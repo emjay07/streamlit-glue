@@ -75,7 +75,7 @@ st.title("Stand-In App")
 # storage = example_table['Table']['StorageDescriptor']
 # s3_bucket_location = storage['Location'].split('/')[2]
 
-s3_bucket_location = "s3://glue-output-csv-demo"
+s3_bucket_location = "glue-output-csv-demo"
 
 s3_client = create_s3_client()
 content = get_content_from_s3(s3_client, s3_bucket_location, k_EXAMPLE_KEY)
@@ -84,4 +84,3 @@ for line in content.strip().split("\n"):
     event, category, date, venue = line.split(",")
     st.write(f"There is a {category} event {event} on {date} at {venue}")
 
-st.write(example_table)
