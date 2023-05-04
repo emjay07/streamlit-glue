@@ -48,10 +48,7 @@ k_S3_BUCKET = "glue-output-csv-demo"
 k_EXAMPLE_KEY = "run-1681502746485-part-r-00000" # test
 
 # Streamlit App Config
-st.set_page_config(layout="wide")
-
-# Pandas Config
-pd.options.plotting.backend = "plotly"
+# st.set_page_config(layout="wide")
 
 # App Code
 st.title("What Can Streamlit Do?")
@@ -83,7 +80,7 @@ with col2:
     with tab2:
         counts = final_df["venuename"].value_counts()
         ven_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
-        fig = px.pie(ven_df, values='count', names='index')
+        fig = px.bar(ven_df, y='count', x='index')
         st.plotly_chart(fig, use_container_width=True)
 
     with tab3:
