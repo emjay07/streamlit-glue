@@ -70,12 +70,16 @@ final_df = pd.concat(df_list)
 col1, col2 = st.columns([1, 2])
 tab1, tab2, tab3 = st.tabs(["Chart 1", "Chart 2", "Chart 3"])
 
+
+
 with col1:
     st.dataframe(final_df)
 
 with col2:
+    counts = final_df.value_counts()
+
     with tab1:
-        fig = final_df.plot.pie(values="catgroup")
+        fig = counts.plot.pie()
         st.plotly_chart(fig, user_container_width=True,)
     
     with tab2:
