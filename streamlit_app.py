@@ -43,15 +43,15 @@ def get_object_content_from_s3(s3_client, bucket, key):
 
 
 # constants
-k_REGION = "us-west-2"
-k_S3_BUCKET = "glue-output-csv-demo"
-k_EXAMPLE_KEY = "run-1681502746485-part-r-00000" # test
+k_REGION = 'us-west-2'
+k_S3_BUCKET = 'glue-output-csv-demo'
+k_EXAMPLE_KEY = 'run-1681502746485-part-r-00000' # test
 
 # Streamlit App Config
-# st.set_page_config(layout="wide")
+# st.set_page_config(layout='wide')
 
 # App Code
-st.title("What Can Streamlit Do?")
+st.title('What Can Streamlit Do?')
 
 s3_client = create_s3_client()
 object_keys = get_object_keys_from_s3(s3_client, k_S3_BUCKET)
@@ -64,24 +64,28 @@ for key in object_keys:
 
 final_df = pd.concat(df_list)
 
+min_date = final_df['caldate'].min()
+max_date = final_df['caldate'].max()
+date = st.date_input('Filter Date Range', value=None, min_value=min_date, max_value = max_date)
+
 col1, col2 = st.columns([1, 2])
 
 with col1:
     st.dataframe(final_df)
 
 with col2:
-    tab1, tab2, tab3 = st.tabs(["Categories", "Venues", "Chart 3"])
+    tab1, tab2, tab3 = st.tabs(['Categories', 'Venues', 'Chart 3'])
     with tab1:
-        counts = final_df["catgroup"].value_counts()
+        counts = final_df['catgroup'].value_counts()
         cat_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
         fig = px.pie(cat_df, values='count', names='index')
         st.plotly_chart(fig, use_container_width=True)
     
     with tab2:
-        counts = final_df["venuename"].value_counts()
+        counts = final_df['venuename'].value_counts()
         ven_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
         fig = px.bar(ven_df, y='count', x='index')
         st.plotly_chart(fig, use_container_width=True)
 
     with tab3:
-        st.write("Under Construction :construction:")
+        st.write('Under Construction :construction:')
