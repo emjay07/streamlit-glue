@@ -75,7 +75,7 @@ with col1:
 
 with col2:
     with tab1:
-        fig = final_df.plot.pie()
+        fig = final_df.plot.pie(values="catgroup")
         st.plotly_chart(fig, user_container_width=True,)
     
     with tab2:
