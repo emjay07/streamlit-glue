@@ -76,11 +76,11 @@ with col1:
     st.dataframe(final_df)
 
 with col2:
-    counts = final_df.value_counts()
 
     with tab1:
-        fig = counts.plot.pie(y='catgroup')
-        # fig = px.pie(counts)
+        counts = final_df["catgroup"].value_counts()
+        cat_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
+        fig = px.pie(cat_df, values='count', names='index')
         st.plotly_chart(fig, user_container_width=True,)
     
     with tab2:
