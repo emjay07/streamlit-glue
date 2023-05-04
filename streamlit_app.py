@@ -79,7 +79,8 @@ with col2:
     counts = final_df.value_counts()
 
     with tab1:
-        fig = counts.plot.pie()
+        # fig = counts.plot.pie()
+        fig = px.pie(counts)
         st.plotly_chart(fig, user_container_width=True,)
     
     with tab2:
