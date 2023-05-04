@@ -47,6 +47,7 @@ k_S3_BUCKET = "glue-output-csv-demo"
 k_EXAMPLE_KEY = "run-1681502746485-part-r-00000" # test
 
 # Streamlit App
+st.set_page_config(layout="wide")
 st.title("What Can Streamlit Do?")
 
 s3_client = create_s3_client()
