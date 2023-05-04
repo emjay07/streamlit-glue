@@ -68,7 +68,7 @@ for key in object_keys:
 final_df = pd.concat(df_list)
 
 col1, col2 = st.columns([1, 2])
-tab1, tab2, tab3 = st.tabs(["Chart 1", "Chart 2", "Chart 3"])
+tab1, tab2, tab3 = st.tabs(["Categories", "Venues", "Chart 3"])
 
 
 
@@ -76,15 +76,17 @@ with col1:
     st.dataframe(final_df)
 
 with col2:
-
     with tab1:
         counts = final_df["catgroup"].value_counts()
         cat_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
         fig = px.pie(cat_df, values='count', names='index')
-        st.plotly_chart(fig, user_container_width=True,)
+        st.plotly_chart(fig, use_container_width=True)
     
     with tab2:
-        st.write("Under Construction :construction:")
+        counts = final_df["venuename"].value_counts()
+        ven_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
+        fig = px.pie(ven_df, values='count', names='index')
+        st.plotly_chart(fig, use_container_width=True)
 
     with tab3:
         st.write("Under Construction :construction:")
