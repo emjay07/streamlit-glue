@@ -68,14 +68,12 @@ for key in object_keys:
 final_df = pd.concat(df_list)
 
 col1, col2 = st.columns([1, 2])
-tab1, tab2, tab3 = st.tabs(["Categories", "Venues", "Chart 3"])
-
-
 
 with col1:
     st.dataframe(final_df)
 
 with col2:
+    tab1, tab2, tab3 = st.tabs(["Categories", "Venues", "Chart 3"])
     with tab1:
         counts = final_df["catgroup"].value_counts()
         cat_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
