@@ -43,12 +43,11 @@ def get_object_content_from_s3(s3_client, bucket, key):
 
 # constants
 k_REGION = "us-west-2"
-k_ACCOUNT_ID = "382152459716"
 k_S3_BUCKET = "glue-output-csv-demo"
-k_EXAMPLE_KEY = "run-1681502746485-part-r-00000"
+k_EXAMPLE_KEY = "run-1681502746485-part-r-00000" # test
 
 # Streamlit App
-st.title("Stand-In App")
+st.title("What Can Streamlit Do?")
 
 s3_client = create_s3_client()
 object_keys = get_object_keys_from_s3(s3_client, k_S3_BUCKET)
@@ -60,8 +59,19 @@ for key in object_keys:
     df_list.append(df)
 
 final_df = pd.concat(df_list)
-st.dataframe(final_df)
-st.line_chart(final_df)
-st.area_chart(final_df)
-st.bar_chart(final_df)
-st.map(final_df)
+
+col1, col2 = st.columns(2)
+tab1, tab2, tab3 = st.tabs(["Chart 1", "Chart 2", "Chart 3"])
+
+with col1:
+    st.dataframe(final_df)
+
+with col2:
+    with tab1:
+        st.line_chart(final_df)
+    
+    with tab2:
+        st.area_chart(final_df)
+
+    with tab3:
+        st.bar_chart(final_df)
