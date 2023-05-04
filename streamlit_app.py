@@ -61,8 +61,7 @@ for key in object_keys:
 
 final_df = pd.concat(df_list)
 st.dataframe(final_df)
-
-# for line in content.strip().split("\n"):
-#     event, category, date, venue = line.split(",")
-#     st.write(f"There is a {category} event {event} on {date} at {venue}")
-
+st.line_chart(final_df)
+st.area_chart(final_df)
+st.bar_chart(final_df)
+st.map(final_df)
