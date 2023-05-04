@@ -1,6 +1,7 @@
 import streamlit as st
 import boto3 as boto
 import pandas as pd
+import plotly.express as px
 from io import StringIO
 from botocore.exceptions import ClientError
 
@@ -46,8 +47,13 @@ k_REGION = "us-west-2"
 k_S3_BUCKET = "glue-output-csv-demo"
 k_EXAMPLE_KEY = "run-1681502746485-part-r-00000" # test
 
-# Streamlit App
+# Streamlit App Config
 st.set_page_config(layout="wide")
+
+# Pandas Config
+pd.options.plotting.backend = "plotly"
+
+# App Code
 st.title("What Can Streamlit Do?")
 
 s3_client = create_s3_client()
@@ -61,7 +67,7 @@ for key in object_keys:
 
 final_df = pd.concat(df_list)
 
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([1, 2])
 tab1, tab2, tab3 = st.tabs(["Chart 1", "Chart 2", "Chart 3"])
 
 with col1:
@@ -69,10 +75,11 @@ with col1:
 
 with col2:
     with tab1:
-        st.line_chart(final_df)
+        fig = final_df.plot.pie()
+        st.plotly_chart(fig, user_container_width=True,)
     
     with tab2:
-        st.area_chart(final_df)
+        st.write("Under Construction :construction:")
 
     with tab3:
-        st.bar_chart(final_df)
+        st.write("Under Construction :construction:")
