@@ -48,7 +48,7 @@ def df_filter(message, df):
     min_date = dt.strptime(final_df['caldate'].min(), date_format)
     max_date = dt.strptime(final_df['caldate'].max(), date_format)
 
-    slider_1, slider_2 = st.slider('%s' % (message),min_date,max_date,[min_date,max_date])
+    slider_min, slider_max = st.slider('%s' % (message),min_date,max_date,[min_date,max_date])
 
     # while len(str(df.iloc[slider_1][1]).replace('.0','')) < 4:
     #     df.iloc[slider_1,1] = '0' + str(df.iloc[slider_1][1]).replace('.0','')
@@ -64,8 +64,8 @@ def df_filter(message, df):
 
     # st.info('Start: **%s** End: **%s**' % (start_date,end_date))
     
-    # filtered_df = df.iloc[slider_1:slider_2+1][:].reset_index(drop=True)
-    filtered_df = df
+    filtered_df = df.iloc[df['caldate'] >= slider_min & df['caldate'] <= slider_max]
+    # filtered_df = df
 
     return filtered_df
 
