@@ -81,6 +81,8 @@ final_df = pd.concat(df_list)
 # filter data
 filtered_df = df_filter('Move sliders to filter date', final_df)
 
+st.info('Number of rows: %d' % len(filtered_df.index))
+
 col1, col2 = st.columns([1, 2])
 
 with col1:
