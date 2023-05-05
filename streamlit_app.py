@@ -49,25 +49,10 @@ def df_filter(message, df):
     max_date = dt.strptime(final_df['caldate'].max(), date_format)
 
     slider_min, slider_max = st.slider('%s' % (message),min_date,max_date,[min_date,max_date])
-
-    # while len(str(df.iloc[slider_1][1]).replace('.0','')) < 4:
-    #     df.iloc[slider_1,1] = '0' + str(df.iloc[slider_1][1]).replace('.0','')
-        
-    # while len(str(df.iloc[slider_2][1]).replace('.0','')) < 4:
-    #     df.iloc[slider_2,1] = '0' + str(df.iloc[slider_1][1]).replace('.0','')
-
-    # start_date = dt.strptime(str(df.iloc[slider_1][0]).replace('.0','') + str(df.iloc[slider_1][1]).replace('.0',''),'%Y%m%d%H%M%S')
-    # start_date = start_date.strftime('%d %b %Y, %I:%M%p')
-    
-    # end_date = dt.strptime(str(df.iloc[slider_2][0]).replace('.0','') + str(df.iloc[slider_2][1]).replace('.0',''),'%Y%m%d%H%M%S')
-    # end_date = end_date.strftime('%d %b %Y, %I:%M%p')
-
-    # st.info('Start: **%s** End: **%s**' % (start_date,end_date))
     
     filter_min = slider_min.strftime(date_format)
-    filter_max = slider_min.strftime(date_format)
+    filter_max = slider_max.strftime(date_format)
     filtered_df = df[(df['caldate'] >= filter_min) & (df['caldate'] <= filter_max)]
-    # filtered_df = df
 
     return filtered_df
 
@@ -77,7 +62,7 @@ k_S3_BUCKET = 'glue-output-csv-demo'
 k_EXAMPLE_KEY = 'run-1681502746485-part-r-00000' # test
 
 # Streamlit App Config
-# st.set_page_config(layout='wide')
+st.set_page_config(layout='wide')
 
 # App Code
 st.title("What Can Streamlit Do?")
