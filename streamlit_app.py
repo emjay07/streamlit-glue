@@ -51,7 +51,7 @@ k_EXAMPLE_KEY = 'run-1681502746485-part-r-00000' # test
 # st.set_page_config(layout='wide')
 
 # App Code
-st.title('What Can Streamlit Do?')
+st.title("What Can Streamlit Do?")
 
 s3_client = create_s3_client()
 object_keys = get_object_keys_from_s3(s3_client, k_S3_BUCKET)
@@ -66,7 +66,7 @@ final_df = pd.concat(df_list)
 
 min_date = final_df['caldate'].min()
 max_date = final_df['caldate'].max()
-date = st.date_input('Filter Date Range', value=None, min_value=min_date, max_value = max_date)
+date = st.date_input("Filter Date Range", min_value=min_date, max_value=max_date)
 
 col1, col2 = st.columns([1, 2])
 
@@ -74,7 +74,7 @@ with col1:
     st.dataframe(final_df)
 
 with col2:
-    tab1, tab2, tab3 = st.tabs(['Categories', 'Venues', 'Chart 3'])
+    tab1, tab2, tab3 = st.tabs(["Categories", "Venues", "Chart 3"])
     with tab1:
         counts = final_df['catgroup'].value_counts()
         cat_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
@@ -88,4 +88,4 @@ with col2:
         st.plotly_chart(fig, use_container_width=True)
 
     with tab3:
-        st.write('Under Construction :construction:')
+        st.write("Under Construction :construction:")
