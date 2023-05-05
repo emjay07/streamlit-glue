@@ -2,6 +2,7 @@ import streamlit as st
 import boto3 as boto
 import pandas as pd
 import plotly.express as px
+import datetime as dt
 from io import StringIO
 from botocore.exceptions import ClientError
 
@@ -64,9 +65,10 @@ for key in object_keys:
 
 final_df = pd.concat(df_list)
 
-min_date = final_df['caldate'].min()
-max_date = final_df['caldate'].max()
-date = st.date_input("Filter Date Range", min_value=min_date, max_value=max_date)
+date_format = '%Y-%m-%d'
+min_date = dt.strptime(final_df['caldate'].min(), date_format)
+max_date = dt.strptime(final_df['caldate'].max(), date_format)
+# date = st.date_input("Filter Date Range", min_value=min_date, max_value=max_date)
 
 col1, col2 = st.columns([1, 2])
 
