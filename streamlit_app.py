@@ -64,7 +64,7 @@ def df_filter(message, df):
 
     # st.info('Start: **%s** End: **%s**' % (start_date,end_date))
     
-    filtered_df = df.iloc[df['caldate'] >= slider_min & df['caldate'] <= slider_max]
+    filtered_df = df[(df['caldate'] >= slider_min) & (df['caldate'] <= slider_max)]
     # filtered_df = df
 
     return filtered_df
