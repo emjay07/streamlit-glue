@@ -2,7 +2,7 @@ import streamlit as st
 import boto3 as boto
 import pandas as pd
 import plotly.express as px
-import datetime as dt
+from datetime import datetime as dt
 from io import StringIO
 from botocore.exceptions import ClientError
 
