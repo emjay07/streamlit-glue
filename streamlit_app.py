@@ -42,6 +42,32 @@ def get_object_content_from_s3(s3_client, bucket, key):
     
     return s3_object.read().decode('utf-8')
 
+def df_filter(message, df):
+        
+    date_format = '%Y-%m-%d'
+    min_date = dt.strptime(final_df['caldate'].min(), date_format)
+    max_date = dt.strptime(final_df['caldate'].max(), date_format)
+
+    slider_1, slider_2 = st.slider('%s' % (message),min_date,max_date,[min_date,max_date],1)
+
+    # while len(str(df.iloc[slider_1][1]).replace('.0','')) < 4:
+    #     df.iloc[slider_1,1] = '0' + str(df.iloc[slider_1][1]).replace('.0','')
+        
+    # while len(str(df.iloc[slider_2][1]).replace('.0','')) < 4:
+    #     df.iloc[slider_2,1] = '0' + str(df.iloc[slider_1][1]).replace('.0','')
+
+    # start_date = dt.strptime(str(df.iloc[slider_1][0]).replace('.0','') + str(df.iloc[slider_1][1]).replace('.0',''),'%Y%m%d%H%M%S')
+    # start_date = start_date.strftime('%d %b %Y, %I:%M%p')
+    
+    # end_date = dt.strptime(str(df.iloc[slider_2][0]).replace('.0','') + str(df.iloc[slider_2][1]).replace('.0',''),'%Y%m%d%H%M%S')
+    # end_date = end_date.strftime('%d %b %Y, %I:%M%p')
+
+    # st.info('Start: **%s** End: **%s**' % (start_date,end_date))
+    
+    # filtered_df = df.iloc[slider_1:slider_2+1][:].reset_index(drop=True)
+    filtered_df = df
+
+    return filtered_df
 
 # constants
 k_REGION = 'us-west-2'
@@ -65,26 +91,24 @@ for key in object_keys:
 
 final_df = pd.concat(df_list)
 
-date_format = '%Y-%m-%d'
-min_date = dt.strptime(final_df['caldate'].min(), date_format)
-max_date = dt.strptime(final_df['caldate'].max(), date_format)
-date = st.date_input("Filter Date Range", value=(min_date, max_date), min_value=min_date, max_value=max_date)
+# filter data
+filtered_df = df_filter('Move sliders to filter date', final_df)
 
 col1, col2 = st.columns([1, 2])
 
 with col1:
-    st.dataframe(final_df)
+    st.dataframe(filtered_df)
 
 with col2:
     tab1, tab2, tab3 = st.tabs(["Categories", "Venues", "Chart 3"])
     with tab1:
-        counts = final_df['catgroup'].value_counts()
+        counts = filtered_df['catgroup'].value_counts()
         cat_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
         fig = px.pie(cat_df, values='count', names='index')
         st.plotly_chart(fig, use_container_width=True)
     
     with tab2:
-        counts = final_df['venuename'].value_counts()
+        counts = filtered_df['venuename'].value_counts()
         ven_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
         fig = px.bar(ven_df, y='count', x='index')
         st.plotly_chart(fig, use_container_width=True)
