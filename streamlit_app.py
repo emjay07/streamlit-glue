@@ -68,7 +68,7 @@ final_df = pd.concat(df_list)
 date_format = '%Y-%m-%d'
 min_date = dt.strptime(final_df['caldate'].min(), date_format)
 max_date = dt.strptime(final_df['caldate'].max(), date_format)
-# date = st.date_input("Filter Date Range", min_value=min_date, max_value=max_date)
+date = st.date_input("Filter Date Range", min_value=min_date, max_value=max_date)
 
 col1, col2 = st.columns([1, 2])
 
