@@ -85,12 +85,13 @@ filtered_df = df_filter('Move sliders to filter date', final_df)
 st.info('Number of rows: %d' % len(filtered_df.index))
 
 col1, col2 = st.columns([1, 2])
+selected_venue_points = []
 
 with col1:
     st.dataframe(filtered_df)
 
 with col2:
-    tab1, tab2, tab3 = st.tabs(["Categories", "Venues", "Chart 3"])
+    tab1, tab2, tab3 = st.tabs(["Categories", "Venues", "Selected Venue Points"])
     with tab1:
         counts = filtered_df['catgroup'].value_counts()
         cat_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
@@ -102,7 +103,7 @@ with col2:
         ven_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
         fig = px.bar(ven_df, y='count', x='index')
         #st.plotly_chart(fig, use_container_width=True)
-        plotly_select_component(fig)
+        selected_venue_points = plotly_select_component(fig)
 
     with tab3:
-        st.write("Under Construction :construction:")
+        st.write(selected_venue_points)
