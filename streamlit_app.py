@@ -84,7 +84,7 @@ filtered_df = df_filter('Move sliders to filter date', final_df)
 
 st.info('Number of rows: %d' % len(filtered_df.index))
 
-col1, col2, col3 = st.columns([1, 2])
+col1, col2, col3 = st.columns([1, 2, 1])
 selected_venue_points = []
 
 with col1:
