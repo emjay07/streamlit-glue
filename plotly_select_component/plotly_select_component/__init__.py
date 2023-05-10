@@ -41,9 +41,6 @@ else:
 
 
 def plotly_select_component(fig):
-    points = _component_func(spec=fig.to_json(), default=[], key="key")
+    points = _component_func(spec=fig.to_json(), default=[])
     return points
 
-@st.cache
-def random_data():
-    return random.sample(range(100), 50), random.sample(range(100), 50)
