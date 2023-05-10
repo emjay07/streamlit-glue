@@ -84,14 +84,14 @@ filtered_df = df_filter('Move sliders to filter date', final_df)
 
 st.info('Number of rows: %d' % len(filtered_df.index))
 
-col1, col2 = st.columns([1, 2])
+col1, col2, col3 = st.columns([1, 2])
 selected_venue_points = []
 
 with col1:
     st.dataframe(filtered_df)
 
 with col2:
-    tab1, tab2, tab3 = st.tabs(["Categories", "Venues", "Selected Venue Points"])
+    tab1, tab2 = st.tabs(["Categories", "Venues"])
     with tab1:
         counts = filtered_df['catgroup'].value_counts()
         cat_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
@@ -105,5 +105,5 @@ with col2:
         #st.plotly_chart(fig, use_container_width=True)
         selected_venue_points = plotly_select_component(fig)
 
-    with tab3:
-        st.write(selected_venue_points)
+with col3:
+    st.write(selected_venue_points)
