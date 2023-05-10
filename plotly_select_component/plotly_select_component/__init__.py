@@ -1,6 +1,5 @@
 import os
 import random
-import plotly_express as px
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -48,9 +47,3 @@ def plotly_select_component(fig):
 @st.cache
 def random_data():
     return random.sample(range(100), 50), random.sample(range(100), 50)
-
-# st.subheader("Plotly Select")
-# x, y = random_data()
-# fig = px.scatter(x=x, y=y, title="My fancy plot")
-# output = plotly_select_component(fig)
-# st.write(output)
