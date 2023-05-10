@@ -1,1 +1,15 @@
+# Don't check-in secrets
 secrets.toml
+
+# VS Code on Mac
+.DS_Store
+
+# streamlit custom component
+*.egg-info
+
+# npm
+node_modules
+package-lock.json
+
+# compiled
+__pycache__/

@@ -1,0 +1,1 @@
+recursive-include plotly_select_component/frontend/build *

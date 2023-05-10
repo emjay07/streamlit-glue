@@ -5,6 +5,7 @@ import plotly.express as px
 from datetime import datetime as dt
 from io import StringIO
 from botocore.exceptions import ClientError
+from plotly_select_component.plotly_select_component import plotly_select_component
 
 def create_s3_client():
     client = boto.client(
@@ -100,7 +101,8 @@ with col2:
         counts = filtered_df['venuename'].value_counts()
         ven_df = pd.DataFrame({'index':counts.index, 'count':counts.values})
         fig = px.bar(ven_df, y='count', x='index')
-        st.plotly_chart(fig, use_container_width=True)
+        #st.plotly_chart(fig, use_container_width=True)
+        plotly_select_component(fig)
 
     with tab3:
         st.write("Under Construction :construction:")
